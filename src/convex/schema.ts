@@ -32,12 +32,57 @@ const schema = defineSchema(
       role: v.optional(roleValidator), // role of the user. do not remove
     }).index("email", ["email"]), // index for the email. do not remove or modify
 
-    // add other tables here
+    // Curated completion specs (the community spec registry).
+    specs: defineTable({
+      name: v.string(), // command name, e.g. "git"
+      slug: v.string(), // normalized, url-safe name
+      description: v.string(),
+      category: v.string(), // e.g. "Version control"
+      icon: v.string(), // short emoji / glyph shown on cards
+      stars: v.number(),
+      downloads: v.number(),
+      version: v.string(),
+      verified: v.boolean(),
+      author: v.string(),
+      tags: v.array(v.string()),
+      subcommands: v.array(
+        v.object({ name: v.string(), description: v.string() }),
+      ),
+      options: v.array(
+        v.object({ name: v.string(), description: v.string() }),
+      ),
+      args: v.array(
+        v.object({ name: v.string(), description: v.string() }),
+      ),
+      sourceCode: v.string(), // TypeScript / Rust spec source
+    })
+      .index("by_slug", ["slug"])
+      .index("by_stars", ["stars"]),
 
-    // tableName: defineTable({
-    //   ...
-    //   // table fields
-    // }).index("by_field", ["field"])
+    // Which specs a user has starred.
+    specStars: defineTable({
+      specId: v.id("specs"),
+      userId: v.id("users"),
+    })
+      .index("by_user_spec", ["userId", "specId"])
+      .index("by_spec", ["specId"]),
+
+    // Community-contributed spec proposals awaiting review.
+    submissions: defineTable({
+      name: v.string(),
+      description: v.string(),
+      category: v.string(),
+      language: v.union(v.literal("typescript"), v.literal("rust")),
+      sourceCode: v.string(),
+      authorId: v.id("users"),
+      authorName: v.string(),
+      status: v.union(
+        v.literal("pending"),
+        v.literal("approved"),
+        v.literal("rejected"),
+      ),
+      createdAt: v.number(),
+    }).index("by_author", ["authorId"]),
   },
   {
     schemaValidation: false,
