@@ -122,9 +122,8 @@ export function TerminalDemo() {
             >
               <span>↑↓ navigate</span>
               <span>↵ accept</span>
-              <span>Tab complete</span>
-              <span className="ml-auto hidden text-emerald-400/80 sm:block">
-                214 specs loaded
+              <span>Tab complete</span>                <span className="ml-auto hidden text-emerald-400/80 sm:block">
+                214 plugins loaded
               </span>
             </motion.div>
           )}

@@ -303,7 +303,7 @@ function DiscoverView({
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search specs — try git, docker, kubectl…"
+            placeholder="Search plugins — try git, docker, kubectl…"
             className="pl-9"
           />
         </div>
@@ -334,7 +334,7 @@ function DiscoverView({
         </div>
       ) : filtered.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border py-16 text-center">
-          <p className="text-sm text-muted-foreground">No specs match your search.</p>
+          <p className="text-sm text-muted-foreground">No plugins match your search.</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -380,7 +380,7 @@ function ContributeView({ onSubmitted }: { onSubmitted: () => void }) {
       });
       if (res.ok) {
         setSourceCode(res.content);
-        toast.success("Spec drafted — review and submit it.");
+        toast.success("Plugin drafted — review and submit it.");
       } else {
         setAiError(res.error || "Generation failed. Check your AI key and try again.");
       }
@@ -406,14 +406,14 @@ function ContributeView({ onSubmitted }: { onSubmitted: () => void }) {
         language,
         sourceCode,
       });
-      toast.success("Spec submitted for review.");
+      toast.success("Plugin submitted for review.");
       setName("");
       setDescription("");
       setSourceCode("");
       setHelpText("");
       onSubmitted();
     } catch {
-      toast.error("Could not submit the spec. Try again.");
+      toast.error("Could not submit the plugin. Try again.");
     } finally {
       setSubmitting(false);
     }
@@ -423,7 +423,7 @@ function ContributeView({ onSubmitted }: { onSubmitted: () => void }) {
     <form onSubmit={handleSubmit} className="grid gap-6 lg:grid-cols-[1fr_360px]">
       <div className="space-y-5">
         <div className="rounded-xl border border-border bg-card p-5">
-          <h3 className="text-sm font-semibold">Spec metadata</h3>
+          <h3 className="text-sm font-semibold">Plugin details</h3>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div className="space-y-1.5">
               <Label htmlFor="name">Command name</Label>
@@ -474,7 +474,7 @@ function ContributeView({ onSubmitted }: { onSubmitted: () => void }) {
 
         <div className="rounded-xl border border-border bg-card p-5">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-semibold">Spec source</h3>
+            <h3 className="text-sm font-semibold">Plugin source</h3>
             <FileCode2 className="size-4 text-muted-foreground" />
           </div>
           <Textarea
@@ -495,7 +495,7 @@ function ContributeView({ onSubmitted }: { onSubmitted: () => void }) {
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
             Paste a command's <span className="font-mono">--help</span> output and
-            the local model drafts a ready-to-review spec in {language === "typescript" ? "TypeScript" : "Rust"}.
+            the local model drafts a ready-to-review completion spec in {language === "typescript" ? "TypeScript" : "Rust"}.
           </p>
           <Textarea
             value={helpText}
@@ -541,7 +541,7 @@ function LibraryView({ onOpen }: { onOpen: (s: Spec) => void }) {
     <div className="space-y-10">
       <section>
         <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-          <Star className="size-5 text-amber-400" /> Starred specs
+          <Star className="size-5 text-amber-400" /> Starred plugins
         </h2>
         {!starred ? (
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -551,7 +551,7 @@ function LibraryView({ onOpen }: { onOpen: (s: Spec) => void }) {
           </div>
         ) : starred.length === 0 ? (
           <p className="mt-4 rounded-xl border border-dashed border-border py-12 text-center text-sm text-muted-foreground">
-            You haven't starred any specs yet. Find a favorite in{" "}
+            You haven't starred any plugins yet. Find a favorite in{" "}
             <span className="text-emerald-300">Discover</span>.
           </p>
         ) : (
@@ -574,7 +574,7 @@ function LibraryView({ onOpen }: { onOpen: (s: Spec) => void }) {
           </div>
         ) : submissions.length === 0 ? (
           <p className="mt-4 rounded-xl border border-dashed border-border py-12 text-center text-sm text-muted-foreground">
-            No submissions yet. Contribute your first spec and it'll show up here.
+            No submissions yet. Create your first plugin and it'll show up here.
           </p>
         ) : (
           <div className="mt-4 space-y-2">
@@ -623,24 +623,24 @@ function LibraryView({ onOpen }: { onOpen: (s: Spec) => void }) {
 // ---------------------------------------------------------------------------
 // Dashboard shell
 // ---------------------------------------------------------------------------
-const NAV: { id: View; label: string; icon: typeof LayoutGrid }[] = [
-  { id: "discover", label: "Discover", icon: LayoutGrid },
-  { id: "contribute", label: "Contribute", icon: Sparkles },
-  { id: "library", label: "My Library", icon: Star },
+const NAV: { id: View; label: string; short: string; icon: typeof LayoutGrid }[] = [
+  { id: "discover", label: "Discover", short: "Discover", icon: LayoutGrid },
+  { id: "contribute", label: "Create plugin", short: "Create", icon: Sparkles },
+  { id: "library", label: "My Library", short: "Library", icon: Star },
 ];
 
 const VIEW_TITLES: Record<View, { title: string; subtitle: string }> = {
   discover: {
-    title: "Discover specs",
-    subtitle: "Browse the completion registry for every command your terminal knows.",
+    title: "Browse plugins",
+    subtitle: "Completion plugins for the tools your shell already uses.",
   },
   contribute: {
-    title: "Contribute a spec",
-    subtitle: "Author a completion definition in TypeScript or Rust — or let AI draft it.",
+    title: "Create a plugin",
+    subtitle: "Author a completion spec in TypeScript or Rust — or let AI draft it.",
   },
   library: {
     title: "My Library",
-    subtitle: "Your starred specs and submissions, in one place.",
+    subtitle: "Your starred plugins and submissions, in one place.",
   },
 };
 
@@ -680,7 +680,7 @@ export default function Dashboard() {
           <img src={logo} alt="Tilde logo" className="size-8 rounded-lg" />
           <div>
             <div className="font-semibold tracking-tight">Tilde</div>
-            <div className="text-[11px] text-muted-foreground">Spec registry</div>
+            <div className="text-[11px] text-muted-foreground">Plugin registry</div>
           </div>
         </div>
 
@@ -744,7 +744,7 @@ export default function Dashboard() {
                 onClick={() => setView(item.id)}
               >
                 <item.icon className="size-4" />
-                {item.label}
+                {item.short}
               </Button>
             ))}
             <Button variant="ghost" size="icon" onClick={handleSignOut} title="Sign out">

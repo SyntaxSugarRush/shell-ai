@@ -1,7 +1,7 @@
 {
-  "name": "Tilde — IDE-grade terminal autocomplete",
+  "name": "Tilde — Autocomplete for your shell",
   "short_name": "Tilde",
-  "description": "IDE-grade autocomplete for your terminal, with a community-driven spec registry.",
+  "description": "Open-source shell autocomplete with community plugins for git, docker, npm, and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0c1310",

@@ -28,32 +28,32 @@ const FEATURES = [
   {
     icon: Layers,
     title: "Subcommands, options & args",
-    body: "Every command ships with its full grammar — subcommands, flags, and positional arguments, each with a description so you never guess what a flag does.",
+    body: "Every command ships with its full grammar — subcommands, flags, and arguments, each with a description.",
   },
   {
     icon: Command,
     title: "Context-aware suggestions",
-    body: "Tilde parses exactly where you are in the command and only offers what's valid next. No more irrelevant flags after you've already picked a subcommand.",
+    body: "Tilde parses your position in the command and only suggests what's valid next.",
   },
   {
     icon: Zap,
     title: "Keystroke-fast",
-    body: "Sub-10ms filtering keeps pace with your fingers. Suggestions are computed locally, so there's no network round-trip between you and the popup.",
+    body: "Sub-10ms filtering, computed locally — no network round-trip between you and the dropdown.",
   },
   {
     icon: Cpu,
     title: "Local-first AI",
-    body: "A latency-optimized model runs on your machine to rank suggestions and fill in argument values. Your command history never leaves your device.",
+    body: "A latency-optimized model ranks suggestions and fills in arguments on-device. Your history never leaves the machine.",
   },
   {
     icon: Boxes,
-    title: "TypeScript & Rust specs",
-    body: "Specs are just code. Author them in TypeScript or Rust, review them in a pull request, and ship them to thousands of users the same day.",
+    title: "Plugins in TypeScript & Rust",
+    body: "Plugins are just code. Write one in TypeScript or Rust, review it in a PR, and ship it to thousands of users.",
   },
   {
     icon: Terminal,
     title: "Works everywhere",
-    body: "First-class support for fish, zsh, and bash — inside Ghostty, Kitty, the VS Code integrated terminal, and every other emulator you use.",
+    body: "fish, zsh, and bash — inside Ghostty, Kitty, the VS Code terminal, and every emulator in between.",
   },
 ];
 
@@ -110,17 +110,16 @@ export default function Landing() {
         <nav className="mx-auto flex h-16 max-w-6xl items-center gap-8 px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2.5">
             <img src={logo} alt="Tilde logo" className="size-8 rounded-lg" />
-            <span className="text-lg font-semibold tracking-tight">Tilde</span>
-            <Badge variant="secondary" className="ml-1 hidden text-[10px] sm:inline-flex">
-              beta
-            </Badge>
+            <span className="text-lg font-semibold tracking-tight">Tilde</span>              <Badge variant="secondary" className="ml-1 hidden text-[10px] sm:inline-flex">
+                open source
+              </Badge>
           </Link>
 
           <div className="ml-2 hidden items-center gap-6 text-sm text-muted-foreground md:flex">
             <a href="#features" className="transition-colors hover:text-foreground">Features</a>
-            <a href="#specs" className="transition-colors hover:text-foreground">Spec library</a>
+            <a href="#plugins" className="transition-colors hover:text-foreground">Plugins</a>
             <a href="#ai" className="transition-colors hover:text-foreground">Local AI</a>
-            <a href="#community" className="transition-colors hover:text-foreground">Contribute</a>
+            <a href="#community" className="transition-colors hover:text-foreground">Create plugin</a>
           </div>
 
           <div className="ml-auto flex items-center gap-2">
@@ -153,11 +152,11 @@ export default function Landing() {
             {...fadeUp(0.05)}
             className="mt-5 text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
           >
-            IDE-grade autocomplete
+            Dropdown autocomplete
             <br />
             for your{" "}
             <span className="bg-gradient-to-r from-emerald-300 to-teal-200 bg-clip-text text-transparent">
-              terminal
+              shell
             </span>
             .
           </motion.h1>
@@ -166,9 +165,9 @@ export default function Landing() {
             {...fadeUp(0.1)}
             className="mt-5 max-w-xl text-lg leading-7 text-muted-foreground"
           >
-            Tilde pops up a searchable list of subcommands, options, and
-            arguments the moment you type — for git, docker, npm, and hundreds
-            more. Works in fish, zsh, and bash, in every terminal you love.
+            Tilde drops a searchable list of commands, flags, and arguments
+            under your prompt as you type — for git, docker, npm, and hundreds
+            more. Open source, and it works in fish, zsh, and bash.
           </motion.p>
 
           <motion.div {...fadeUp(0.15)} className="mt-8 flex flex-wrap items-center gap-3">
@@ -179,13 +178,13 @@ export default function Landing() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href="#specs">Explore the spec library</a>
+              <a href="#plugins">Browse plugins</a>
             </Button>
           </motion.div>
 
           <motion.dl {...fadeUp(0.2)} className="mt-10 grid max-w-md grid-cols-3 gap-6">
             {[
-              ["250+", "commands covered"],
+              ["250+", "plugins"],
               ["8ms", "median latency"],
               ["100%", "on-device"],
             ].map(([v, l]) => (
@@ -228,11 +227,11 @@ export default function Landing() {
         <motion.div {...fadeUp()} className="mx-auto max-w-2xl text-center">
           <Eyebrow>Why Tilde</Eyebrow>
           <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Everything an editor gives you, in your shell
+            Editor-grade completions, without leaving the shell
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Tilde reimagines the Fig experience for Linux — fast, private, and
-            infinitely extensible.
+            An open-source replacement for Fig — fast, private, and extensible
+            with plugins.
           </p>
         </motion.div>
 
@@ -269,21 +268,21 @@ export default function Landing() {
       </section>
 
       {/* ---------------- Spec library ---------------- */}
-      <section id="specs" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
+      <section id="plugins" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
         <motion.div {...fadeUp()} className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
-            <Eyebrow>Spec library</Eyebrow>
+            <Eyebrow>Plugins</Eyebrow>
             <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-              A growing library, ready out of the box
+              Plugins for the tools you already use
             </h2>
             <p className="mt-4 text-muted-foreground">
-              Every command ships with descriptions for its subcommands,
-              options, and arguments — contributed by the community.
+              Each plugin ships descriptions for every subcommand, flag, and
+              argument — contributed by the community.
             </p>
           </div>
           <Button asChild variant="outline" className="gap-1.5">
             <Link to={appHref}>
-              Browse all specs
+              Browse all plugins
               <ArrowRight className="size-4" />
             </Link>
           </Button>
@@ -409,20 +408,19 @@ export default function Landing() {
         </motion.div>
 
         <motion.div {...fadeUp(0.1)} className="order-1 lg:order-2">
-          <Eyebrow>Extensible by design</Eyebrow>
+          <Eyebrow>Plugin system</Eyebrow>
           <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-            Write a spec. Open a PR. Done.
+            Write a plugin. Open a PR. Done.
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Completion definitions are plain code — authored in TypeScript or
-            Rust — so the community can add support for hundreds of tools
-            without waiting on the core team.
+            Plugins are plain code — TypeScript or Rust — so anyone can add
+            support for a new tool without waiting on the core team.
           </p>
           <ul className="mt-6 space-y-3">
             {[
-              "A typed, declarative schema for subcommands and options",
+              "A typed, declarative format for commands, flags, and arguments",
               "Generators for dynamic values like branches and image names",
-              "CI validation and a review queue for every contribution",
+              "CI checks and a review queue for every contribution",
             ].map((t) => (
               <li key={t} className="flex items-start gap-3 text-sm">
                 <Check className="mt-0.5 size-4 shrink-0 text-emerald-400" />
@@ -434,7 +432,7 @@ export default function Landing() {
             <Button asChild className="gap-1.5">
               <Link to={appHref}>
                 <Users className="size-4" />
-                Contribute a spec
+                Create a plugin
               </Link>
             </Button>
             <Button asChild variant="outline" className="gap-1.5">
@@ -461,8 +459,8 @@ export default function Landing() {
             Your terminal is waiting.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Stop memorizing flags. Install Tilde and let your shell keep up
-            with you.
+            Stop memorizing flags. Install Tilde and get completions in every
+            shell.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button asChild size="lg" className="gap-1.5">
@@ -487,11 +485,11 @@ export default function Landing() {
           <div className="flex items-center gap-2.5">
             <img src={logo} alt="Tilde logo" className="size-7 rounded-lg" />
             <span className="font-semibold">Tilde</span>
-            <span className="text-sm text-muted-foreground">— terminal autocomplete for Linux</span>
+            <span className="text-sm text-muted-foreground">— open-source autocomplete for your shell</span>
           </div>
           <div className="flex items-center gap-5 text-sm text-muted-foreground">
             <a href="#features" className="transition-colors hover:text-foreground">Features</a>
-            <a href="#specs" className="transition-colors hover:text-foreground">Specs</a>
+            <a href="#plugins" className="transition-colors hover:text-foreground">Plugins</a>
             <a
               href="https://github.com/withfig/autocomplete"
               target="_blank"
