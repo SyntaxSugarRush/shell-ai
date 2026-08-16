@@ -124,3 +124,31 @@
     cursor: pointer;
   }
 }
+
+/* Subtle terminal textures */
+@utility bg-dots {
+  background-image: radial-gradient(
+    circle,
+    oklch(0.72 0.17 162 / 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+@utility scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    oklch(0.93 0.012 165 / 0.04) 0px,
+    oklch(0.93 0.012 165 / 0.04) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* Subtle blueprint grid — used sparingly to avoid the generic "AI glow" look */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, oklch(1 0 0 / 5%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(1 0 0 / 5%) 1px, transparent 1px);
+  background-size: 40px 40px;
+}

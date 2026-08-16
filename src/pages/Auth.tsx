@@ -110,9 +110,16 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10 bg-grid opacity-30 [mask-image:radial-gradient(70%_60%_at_50%_30%,black,transparent)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-96 bg-[radial-gradient(60%_50%_at_50%_0%,oklch(0.72_0.17_162/0.08),transparent_70%)]"
+      />
 
-      
       {/* Auth Content */}
       <div className="flex-1 flex items-center justify-center">
         <div className="flex items-center justify-center h-full flex-col">
@@ -123,14 +130,15 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
               <div className="flex justify-center">
                     <img
                       src={logo}
-                      alt="Lock Icon"
-                      width={64}
-                      height={64}
-                      className="rounded-lg mb-4 mt-4 cursor-pointer"
+                      alt="Tilde logo"
+                      width={56}
+                      height={56}
+                      className="rounded-lg mb-3 mt-4 cursor-pointer"
                       onClick={() => navigate("/")}
                     />
                   </div>
-                <CardTitle className="text-xl">Get Started</CardTitle>
+                <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-emerald-300">tilde</p>
+                <CardTitle className="text-xl font-semibold">Get Started</CardTitle>
                 <CardDescription>
                   Enter your email to log in or sign up
                 </CardDescription>

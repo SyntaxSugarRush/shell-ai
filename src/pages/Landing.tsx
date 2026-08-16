@@ -64,16 +64,16 @@ const STEPS = [
 ];
 
 const LIBRARY = [
-  { icon: "🌿", name: "git", category: "Version control", stars: "18.4k", sub: 14, desc: "Distributed version control." },
-  { icon: "🐳", name: "docker", category: "Containers", stars: "12.7k", sub: 13, desc: "Build, ship, and run containers." },
-  { icon: "📦", name: "npm", category: "Package managers", stars: "9.4k", sub: 12, desc: "The Node.js package manager." },
-  { icon: "☸️", name: "kubectl", category: "Orchestration", stars: "8.9k", sub: 11, desc: "Control Kubernetes clusters." },
-  { icon: "🏗️", name: "terraform", category: "Infrastructure", stars: "7.3k", sub: 10, desc: "Infrastructure as code." },
-  { icon: "🦀", name: "cargo", category: "Rust", stars: "6.1k", sub: 12, desc: "The Rust build tool." },
-  { icon: "☁️", name: "aws", category: "Cloud", stars: "10.3k", sub: 9, desc: "The AWS CLI." },
-  { icon: "🍺", name: "brew", category: "System", stars: "8.1k", sub: 10, desc: "The Homebrew package manager." },
-  { icon: "🐈", name: "gh", category: "Developer tools", stars: "11.5k", sub: 9, desc: "GitHub on the command line." },
-  { icon: "🔁", name: "curl", category: "Developer tools", stars: "6.9k", sub: 0, desc: "Transfer data from URLs." },
+  { name: "git", category: "version control", stars: "18.4k", sub: 14, desc: "Distributed version control." },
+  { name: "docker", category: "containers", stars: "12.7k", sub: 13, desc: "Build, ship, and run containers." },
+  { name: "npm", category: "package managers", stars: "9.4k", sub: 12, desc: "The Node.js package manager." },
+  { name: "kubectl", category: "orchestration", stars: "8.9k", sub: 11, desc: "Control Kubernetes clusters." },
+  { name: "terraform", category: "infrastructure", stars: "7.3k", sub: 10, desc: "Infrastructure as code." },
+  { name: "cargo", category: "rust", stars: "6.1k", sub: 12, desc: "The Rust build tool." },
+  { name: "aws", category: "cloud", stars: "10.3k", sub: 9, desc: "The AWS CLI." },
+  { name: "brew", category: "system", stars: "8.1k", sub: 10, desc: "The Homebrew package manager." },
+  { name: "gh", category: "developer tools", stars: "11.5k", sub: 9, desc: "GitHub on the command line." },
+  { name: "curl", category: "developer tools", stars: "6.9k", sub: 0, desc: "Transfer data from URLs." },
 ];
 
 function fadeUp(delay = 0) {
@@ -87,7 +87,7 @@ function fadeUp(delay = 0) {
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1 text-xs font-medium tracking-wide text-emerald-300">
+    <span className="font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-emerald-300">
       {children}
     </span>
   );
@@ -99,20 +99,21 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* ambient glow */}
+      {/* faint top light — kept subtle, no full-screen gradient wash */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[640px] bg-[radial-gradient(60%_50%_at_50%_0%,oklch(0.72_0.17_162/0.14),transparent_70%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[480px] bg-[radial-gradient(60%_40%_at_50%_0%,oklch(0.72_0.17_162/0.07),transparent_70%)]"
       />
 
       {/* ---------------- Nav ---------------- */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
         <nav className="mx-auto flex h-16 max-w-6xl items-center gap-8 px-4 sm:px-6">
           <Link to="/" className="flex items-center gap-2.5">
-            <img src={logo} alt="Tilde logo" className="size-8 rounded-lg" />
-            <span className="text-lg font-semibold tracking-tight">Tilde</span>              <Badge variant="secondary" className="ml-1 hidden text-[10px] sm:inline-flex">
-                open source
-              </Badge>
+            <img src={logo} alt="Tilde logo" className="size-7 rounded-lg" />
+            <span className="font-mono text-base font-semibold tracking-tight">tilde</span>
+            <Badge variant="secondary" className="ml-1 hidden text-[10px] sm:inline-flex">
+              open source
+            </Badge>
           </Link>
 
           <div className="ml-2 hidden items-center gap-6 text-sm text-muted-foreground md:flex">
@@ -142,23 +143,20 @@ export default function Landing() {
       <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-24">
         <div>
           <motion.div {...fadeUp(0)}>
-            <Eyebrow>
-              <span className="size-1.5 rounded-full bg-emerald-400" />
-              Open source · Linux-first
-            </Eyebrow>
+            <div className="flex items-center gap-2 font-mono text-xs text-muted-foreground">
+              <span className="text-emerald-300">❯</span>
+              <span className="text-foreground/90">tilde</span>
+              <span className="text-muted-foreground/60">--open-source --linux-first</span>
+            </div>
           </motion.div>
 
           <motion.h1
             {...fadeUp(0.05)}
-            className="mt-5 text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+            className="mt-6 text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
           >
             Dropdown autocomplete
             <br />
-            for your{" "}
-            <span className="bg-gradient-to-r from-emerald-300 to-teal-200 bg-clip-text text-transparent">
-              shell
-            </span>
-            .
+            for your <span className="text-emerald-300">shell</span>.
           </motion.h1>
 
           <motion.p
@@ -189,8 +187,8 @@ export default function Landing() {
               ["100%", "on-device"],
             ].map(([v, l]) => (
               <div key={l}>
-                <dt className="text-2xl font-semibold tracking-tight text-emerald-300">{v}</dt>
-                <dd className="mt-1 text-xs text-muted-foreground">{l}</dd>
+                <dt className="font-mono text-xl font-medium tabular-nums text-emerald-300">{v}</dt>
+                <dd className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">{l}</dd>
               </div>
             ))}
           </motion.dl>
@@ -208,8 +206,8 @@ export default function Landing() {
       {/* ---------------- Shells strip ---------------- */}
       <section className="border-y border-border/60 bg-card/40">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-3 gap-y-2 px-4 py-6 sm:px-6">
-          <span className="mr-2 text-xs uppercase tracking-wider text-muted-foreground">
-            Works in
+          <span className="mr-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+            works in
           </span>
           {SHELLS.map((s) => (
             <span
@@ -235,18 +233,18 @@ export default function Landing() {
           </p>
         </motion.div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((f, i) => (
             <motion.div
               key={f.title}
               {...fadeUp(0.05 * i)}
-              className="group rounded-2xl border border-border bg-card p-6 transition-colors hover:border-emerald-400/30"
+              className="rounded-xl border border-border bg-card/70 p-5 transition-colors hover:border-emerald-400/40"
             >
-              <div className="flex size-11 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-300">
-                <f.icon className="size-5" />
+              <div className="flex items-center gap-2.5">
+                <f.icon className="size-4 shrink-0 text-emerald-300" />
+                <h3 className="text-[15px] font-semibold tracking-tight">{f.title}</h3>
               </div>
-              <h3 className="mt-4 text-lg font-semibold tracking-tight">{f.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{f.body}</p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">{f.body}</p>
             </motion.div>
           ))}
         </div>
@@ -258,7 +256,7 @@ export default function Landing() {
           <div className="grid gap-8 md:grid-cols-3">
             {STEPS.map((s, i) => (
               <motion.div key={s.n} {...fadeUp(0.05 * i)} className="relative">
-                <span className="font-mono text-4xl font-bold text-emerald-400/20">{s.n}</span>
+                <span className="font-mono text-3xl font-semibold text-emerald-400/25">{s.n}</span>
                 <h3 className="mt-2 text-lg font-semibold tracking-tight">{s.title}</h3>
                 <p className="mt-1.5 text-sm leading-6 text-muted-foreground">{s.body}</p>
               </motion.div>
@@ -267,7 +265,7 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ---------------- Spec library ---------------- */}
+      {/* ---------------- Plugin library ---------------- */}
       <section id="plugins" className="mx-auto max-w-6xl px-4 py-24 sm:px-6">
         <motion.div {...fadeUp()} className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-xl">
@@ -288,25 +286,27 @@ export default function Landing() {
           </Button>
         </motion.div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {LIBRARY.map((s, i) => (
             <motion.div
               key={s.name}
               {...fadeUp(0.03 * i)}
-              className="flex flex-col rounded-xl border border-border bg-card p-4 transition-colors hover:border-emerald-400/30"
+              className="flex flex-col rounded-lg border border-border bg-card/70 p-4 transition-colors hover:border-emerald-400/40"
             >
-              <div className="flex items-center gap-2.5">
-                <span className="text-xl">{s.icon}</span>
+              <div className="flex items-baseline justify-between gap-2">
                 <span className="font-mono text-sm font-semibold">{s.name}</span>
-              </div>
-              <p className="mt-2 flex-1 text-xs leading-5 text-muted-foreground">{s.desc}</p>
-              <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1">
+                <span className="inline-flex items-center gap-1 font-mono text-[11px] text-muted-foreground">
                   <Star className="size-3 fill-amber-400 text-amber-400" />
                   {s.stars}
                 </span>
-                <span>{s.sub} subcommands</span>
               </div>
+              <span className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-emerald-300/80">
+                {s.category}
+              </span>
+              <p className="mt-3 flex-1 text-xs leading-5 text-muted-foreground">{s.desc}</p>
+              <span className="mt-3 border-t border-border/60 pt-2 font-mono text-[10px] text-muted-foreground/70">
+                {s.sub} subcommands
+              </span>
             </motion.div>
           ))}
         </div>
@@ -340,7 +340,7 @@ export default function Landing() {
             </ul>
           </motion.div>
 
-          <motion.div {...fadeUp(0.1)} className="rounded-2xl border border-border bg-[#0c1310] p-6 shadow-2xl shadow-black/40">
+          <motion.div {...fadeUp(0.1)} className="rounded-2xl border border-border bg-[#0c1310] p-6 shadow-lg shadow-black/30">
             <div className="flex items-center justify-between font-mono text-xs text-muted-foreground">
               <span className="inline-flex items-center gap-2">
                 <Cpu className="size-4 text-emerald-400" />
@@ -370,7 +370,7 @@ export default function Landing() {
       {/* ---------------- Community ---------------- */}
       <section id="community" className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-2">
         <motion.div {...fadeUp()} className="order-2 lg:order-1">
-          <div className="overflow-hidden rounded-2xl border border-border bg-[#0c1310] shadow-2xl shadow-black/40">
+          <div className="overflow-hidden rounded-2xl border border-border bg-[#0c1310] shadow-lg shadow-black/30">
             <div className="flex items-center gap-1.5 border-b border-border px-4 py-3">
               <span className="size-2.5 rounded-full bg-border" />
               <span className="size-2.5 rounded-full bg-border" />
@@ -398,7 +398,7 @@ export default function Landing() {
                 {"      "}<span className="text-muted-foreground">options:</span> [{"{"}
                 <span className="text-muted-foreground"> name:</span>{" "}
                 <span className="text-amber-300">"-m"</span> {"}"}],{"\n"}
-                {"    }"},{",\n"}
+                {"    }"},{"},\n"}
                 {"  ]"},{",\n"}
                 {"}"};
                 {"\n"}
@@ -449,32 +449,34 @@ export default function Landing() {
       <section className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
         <motion.div
           {...fadeUp()}
-          className="relative overflow-hidden rounded-3xl border border-emerald-400/20 bg-gradient-to-br from-emerald-400/10 via-card to-card p-10 text-center sm:p-16"
+          className="relative overflow-hidden rounded-2xl border border-border bg-card p-10 text-center sm:p-14"
         >
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-[radial-gradient(50%_100%_at_50%_0%,oklch(0.72_0.17_162/0.25),transparent_70%)]"
+            className="pointer-events-none absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(60%_60%_at_50%_40%,black,transparent)]"
           />
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Your terminal is waiting.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Stop memorizing flags. Install Tilde and get completions in every
-            shell.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" className="gap-1.5">
-              <Link to={appHref}>
-                Get started free
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="gap-1.5">
-              <a href="https://github.com/withfig/autocomplete" target="_blank" rel="noopener noreferrer">
-                <Github className="size-4" />
-                View the reference
-              </a>
-            </Button>
+          <div className="relative">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Your terminal is waiting.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              Stop memorizing flags. Install Tilde and get completions in every
+              shell.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <Button asChild size="lg" className="gap-1.5">
+                <Link to={appHref}>
+                  Get started free
+                  <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="gap-1.5">
+                <a href="https://github.com/withfig/autocomplete" target="_blank" rel="noopener noreferrer">
+                  <Github className="size-4" />
+                  View the reference
+                </a>
+              </Button>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -484,7 +486,7 @@ export default function Landing() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-10 sm:flex-row sm:px-6">
           <div className="flex items-center gap-2.5">
             <img src={logo} alt="Tilde logo" className="size-7 rounded-lg" />
-            <span className="font-semibold">Tilde</span>
+            <span className="font-mono font-semibold">tilde</span>
             <span className="text-sm text-muted-foreground">— open-source autocomplete for your shell</span>
           </div>
           <div className="flex items-center gap-5 text-sm text-muted-foreground">
